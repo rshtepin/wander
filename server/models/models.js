@@ -5,7 +5,11 @@ const Test = sequelize.define(
   'test', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   title: {type: DataTypes.STRING, unique: true},
-  OS: {type: DataTypes.ENUM, values: ['Windows', 'Linux', 'Mac OS']}
+  OS: {
+    type: DataTypes.ARRAY(DataTypes.ENUM({
+      values: ['Windows', 'Linux', 'Mac OS']
+    }))
+  }
 })
 
 const User = sequelize.define(
@@ -25,7 +29,11 @@ const DlpProduct = sequelize.define(
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   name: {type: DataTypes.STRING, unique: true, allowNull: true},
   img: {type: DataTypes.STRING, allowNull: true},
-  OS: {type: DataTypes.ENUM, values: ['Windows', 'Linux', 'Mac OS']}
+  OS: {
+    type: DataTypes.ARRAY(DataTypes.ENUM({
+      values: ['Windows', 'Linux', 'Mac OS']
+    }))
+  }
 })
 
 const DlpProductInfo = sequelize.define(

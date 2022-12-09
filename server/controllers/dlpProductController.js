@@ -10,7 +10,7 @@ class DlpUProductController {
       const {img} = req.files
       let fileName = uuid.v4() + ".jpg"
       img.mv(path.resolve(__dirname, '..', 'static', fileName))
-      const dlpPrdct = await DlpProduct.create({name, img: fileName})
+      const dlpPrdct = await DlpProduct.create({name, img: fileName, OS})
 
       return res.json(dlpPrdct)
     } catch (error) {
