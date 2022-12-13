@@ -1,8 +1,8 @@
 import React from 'react'
-import TypesExample from '../components/allProducts'
+import AllProducts from '../components/AllProducts'
 
 export default function Products() {
   return (
-    <TypesExample />
+    <AllProducts />
   )
 }

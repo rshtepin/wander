@@ -1,31 +1,36 @@
-const {Test} = require('../models/models')
+const {Products} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 
-class TestController {
+class ProductsController {
   async create(req, res, next) {
     try {
       const {title, OS} = req.body
-      const Testvar = await Test.create({title, OS})
+      const Productsvar = await Products.create({title, OS})
 
-      return res.json(Testvar)
+      return res.json(Productsvar)
     } catch (error) {
       next(ApiError.badRequest(error.message))
     }
 
   }
-  async getAll(req, res) {
-    const Testvar = await Test.findAll()
-    const stat = await Test.getAttributes().OS.values
 
-    return (res.json(Testvar)
+  async getAll(req, res) {
+    const Productsvar = await Products.findAll()
+    return (res.json(Productsvar)
+    )
+  }
+
+  async editor(req, res) {
+    const Productsvar = await Products.findAll()
+    return (res.json(Productsvar)
     )
   }
 
   async change(req, res, next) {
     const {id, title, OS} = req.body
     try {
-      const Testvar = await Test.update({
+      const Productsvar = await Products.update({
         id: id,
         title: title,
         OS: OS
@@ -45,13 +50,13 @@ class TestController {
 
   async getOne(req, res) {
     const {id} = req.params
-    const Testvar = await Test.findOne(
+    const Productsvar = await Products.findOne(
       {
         where: {id}
       }
     )
-    return res.json(Testvar)
+    return res.json(Productsvar)
   }
 }
 
-module.exports = new TestController()
+module.exports = new ProductsController()

@@ -1,8 +1,8 @@
 const {DataTypes} = require('sequelize')
 const sequelize = require('../db')
 
-const Test = sequelize.define(
-  'test', {
+const Products = sequelize.define(
+  'product', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   title: {type: DataTypes.STRING, unique: true},
   OS: {
@@ -24,41 +24,9 @@ const CompareBasket = sequelize.define(
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 })
 
-const DlpProduct = sequelize.define(
-  'dlpProduct', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  name: {type: DataTypes.STRING, unique: true, allowNull: true},
-  img: {type: DataTypes.STRING, allowNull: true},
-  OS: {
-    type: DataTypes.ARRAY(DataTypes.ENUM({
-      values: ['Windows', 'Linux', 'Mac OS']
-    }))
-  }
-})
-
-const DlpProductInfo = sequelize.define(
-  'dlpProductInfo', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  title: {type: DataTypes.STRING, unique: true, allowNull: false},
-  description: {type: DataTypes.STRING, allowNull: true}
-})
-
-
-const Brand = sequelize.define(
-  'brand', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  name: {type: DataTypes.STRING, unique: true, allowNull: true}
-})
-
-
-DlpProduct.hasMany(DlpProductInfo)
-DlpProductInfo.belongsTo(DlpProduct)
 
 module.exports = {
-  Test,
+  Products,
   User,
-  DlpProduct,
-  DlpProductInfo,
-  Brand,
   CompareBasket
 }

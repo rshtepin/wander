@@ -10,7 +10,7 @@ function NavBar() {
           <Navbar.Brand href="#home">Wonder Digital</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Главная</Nav.Link>
-            <Nav.Link href="/Products">Продукты</Nav.Link>
+            <Nav.Link href="/products">Продукты</Nav.Link>
 
 
           </Nav>
