@@ -9,6 +9,9 @@ export default class EditorStore {
   setList(List) {
     this._List = List
   }
+  addItem(Item) {
+    this._List.push(Item)
+  }
 
   get list() {
     return this._List

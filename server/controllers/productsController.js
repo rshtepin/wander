@@ -26,7 +26,6 @@ class ProductsController {
     return (res.json(Productsvar)
     )
   }
-
   async change(req, res, next) {
     const {id, title, OS} = req.body
     try {
@@ -48,15 +47,15 @@ class ProductsController {
     }
   }
 
-  async getOne(req, res) {
-    const {id} = req.params
-    const Productsvar = await Products.findOne(
-      {
-        where: {id}
-      }
-    )
-    return res.json(Productsvar)
-  }
+  // async getOne(req, res) {
+  //   const {id} = req.params
+  //   const Productsvar = await Products.findOne(
+  //     {
+  //       where: {id}
+  //     }
+  //   )
+  //   return res.json(Productsvar)
+  // }
 }
 
 module.exports = new ProductsController()

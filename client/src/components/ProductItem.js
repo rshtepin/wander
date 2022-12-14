@@ -10,7 +10,9 @@ const ProductItem = ({product}) => {
         <Card.Body>
           <Card.Title>{product.title}</Card.Title>
           <Card.Text>
-            Операционная система: {product.OS}
+            Операционная система:    {product.OS.map((products) => {
+              return (' ' + products)
+            })}
           </Card.Text>
 
         </Card.Body>

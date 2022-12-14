@@ -39,10 +39,10 @@ const AllProducts = observer(() => {
         </Row>
         <Row className="mt-4 ">
           <Button className="mb-4" variant='secondary' >Запрос</Button>
-          <Button className="mb-4" variant="primary"
+          {/* <Button className="mb-4" variant="primary"
             onClick={() => setShow(true)}>
             Вызвать Modal
-          </Button>
+          </Button> */}
           <Button variant="danger" href="/products/editor">
             Редактор шаблона
           </Button>

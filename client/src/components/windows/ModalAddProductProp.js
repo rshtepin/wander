@@ -1,19 +1,26 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
+import {Context} from '../../index'
+import {addColumn} from '../../http/testAPI'
 import '../../style/style.css'
-
 
 const ModalAddProductProp = (prop) => {
   const {show, onHide, onClose} = prop
   const [modVars, setModVars] = useState(['', ''])
+  const {editorfields} = useContext(Context)
 
-  const handleClose = () => {
+  const handleSave = () => {
     console.log('handleClose')
-    {onHide}
+    editorfields.addItem({
+      'column_name': modVars[0],
+      'data_type': 'character varying'
+    })
+    addColumn(modVars[0])
+    onHide()
   }
   // const handleShow = () => {
   //   return (show)
@@ -56,7 +63,7 @@ const ModalAddProductProp = (prop) => {
           <Button variant="secondary" onClick={onClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSave}>
             Save Changes
           </Button>
         </Modal.Footer>
