@@ -34,7 +34,7 @@ export const publicRoutes = [
     Component: Editor
   },
   {
-    path: PRODUCT_ROUTE,
+    path: PRODUCT_ROUTE + '/:id',
     Component: Product
   }
 ]

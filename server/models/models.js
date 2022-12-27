@@ -1,16 +1,30 @@
+
 const {DataTypes} = require('sequelize')
 const sequelize = require('../db')
+const productTable = process.env.DB_PRODUCTS_TABLE
+const productInfoTable = process.env.DB_PRODUCT_INFO_TABLE
+const varNameTable = process.env.DB_PRODUCT_VAR_NAMES
 
 const Products = sequelize.define(
-  'product', {
+  productTable, {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  title: {type: DataTypes.STRING, unique: true},
-  OS: {
-    type: DataTypes.ARRAY(DataTypes.ENUM({
-      values: ['Windows', 'Linux', 'Mac OS']
-    }))
-  }
+  title: {type: DataTypes.STRING, unique: true}
 })
+
+const Var_names = sequelize.define(
+  varNameTable, {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  sqlVar: {type: DataTypes.STRING, primaryKey: true, unique: true},
+  showVar: {type: DataTypes.STRING, primaryKey: true},
+}, {timestamps: false}
+)
+
+const Product_info = sequelize.define(
+  productInfoTable, {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  idProduct: {type: DataTypes.INTEGER, primaryKey: true}
+}, {timestamps: false}
+)
 
 const User = sequelize.define(
   'user', {
@@ -19,14 +33,10 @@ const User = sequelize.define(
   password: {type: DataTypes.STRING},
   role: {type: DataTypes.STRING, defaultValue: "USER"}
 })
-const CompareBasket = sequelize.define(
-  'compareBasket', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
-})
-
 
 module.exports = {
   Products,
   User,
-  CompareBasket
+  Product_info,
+  Var_names
 }

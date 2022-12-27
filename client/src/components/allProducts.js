@@ -2,11 +2,12 @@ import React, {useContext, useEffect, useState} from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import {getAllRecords} from '../http/testAPI'
+import {getAllRecords} from '../http/commandsApi'
 import ModalAddProductProp from './windows/ModalAddProductProp'
 import {Context} from '../index'
 import {observer} from 'mobx-react-lite'
 import ProductItem from './ProductItem'
+
 
 const AllProducts = observer(() => {
   const [show, setShow] = useState(false)
@@ -20,13 +21,17 @@ const AllProducts = observer(() => {
 
   const onHide = () => {
     setShow(false)
+    getAllRecords().then((data) => {
+      products.setList(data.data)
+    })
   }
 
   const onClose = () => {
-    // console.log('onHide')
     setShow(false)
   }
+  const onSave = () => {
 
+  }
   return (
     <>
       <Container className="mt-4">
@@ -38,17 +43,17 @@ const AllProducts = observer(() => {
 
         </Row>
         <Row className="mt-4 ">
-          <Button className="mb-4" variant='secondary' >Запрос</Button>
-          {/* <Button className="mb-4" variant="primary"
+          <Button className="mb-4" variant="primary"
             onClick={() => setShow(true)}>
-            Вызвать Modal
-          </Button> */}
-          <Button variant="danger" href="/products/editor">
-            Редактор шаблона
+            Добавить продукт
+          </Button>
+          <Button variant="danger" href="/editor">
+            Редактор шаблона Info
           </Button>
         </Row>
       </Container>
-      <ModalAddProductProp show={show} onHide={onHide} onClose={onClose} />
+      <ModalAddProductProp
+        show={show} onHide={onHide} onClose={onClose} onSave={onSave} />
     </>
   )
 })

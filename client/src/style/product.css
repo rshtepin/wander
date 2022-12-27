@@ -1,0 +1,88 @@
+/* Auto layout */
+.backProductpropcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 2px;
+
+  position: relative;
+  width: 300px;
+  height: 720px;
+
+  background: linear-gradient(9.85deg, #00D1FF 0%, #B5C5FF 100%)
+}
+
+.imgDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  width: 280px;
+  height: 250px;
+
+  background: #66B6FF;
+  border-radius: 5px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.fieldBG {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px;
+  gap: 3px;
+
+  width: 280px;
+
+
+  background: #CACACA;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.41);
+  border-radius: 4px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+
+
+  color: #000000;
+}
+
+.fieldText {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 1px 5px;
+  gap: 1px;
+  min-height: 14px;
+  width: 276px;
+
+
+  background: #FFFFFF;
+  border-radius: 4px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}

@@ -1,9 +1,7 @@
-import {makeAutoObservable} from 'mobx'
 
 export default class EditorStore {
   constructor() {
     this._List = []
-    makeAutoObservable(this)
   }
 
   setList(List) {
@@ -13,7 +11,18 @@ export default class EditorStore {
     this._List.push(Item)
   }
 
-  get list() {
+  delItem(Item) {
+    const id = this._List.indexOf(Item) // 2
+    console.log(id)
+    this._List.splice(id, 1)
+    const narrr = this._List
+    this._List = []
+    console.log(this._List)
+    console.log(id)
+    this._List = narrr
+  }
+
+  getlist() {
     return this._List
   }
 }
