@@ -10,6 +10,7 @@ class ProductsController {
       const id = Productsvar.id
       const [results, metadata] =
         await sequelize.query("INSERT INTO " + process.env.DB_PRODUCT_INFO_TABLE + "s (\"idProduct\") VALUES(" + id + ");")
+
       return res.json(Productsvar)
     } catch (error) {
       next(ApiError.badRequest(error.message))
@@ -53,16 +54,37 @@ class ProductsController {
   async getOne(req, res, next) {
     try {
       const {id} = req.params
-      console.log(id)
-      const [results, metadata] =
+
+      const [resultsInfo, metadataInfo] =
         await sequelize.query("SELECT " + process.env.DB_PRODUCTS_TABLE + "s.title, " + process.env.DB_PRODUCT_INFO_TABLE +
           "s.* FROM " + process.env.DB_PRODUCTS_TABLE + "s LEFT JOIN "
           + process.env.DB_PRODUCT_INFO_TABLE + "s ON "
           + process.env.DB_PRODUCTS_TABLE + "s.id = "
           + process.env.DB_PRODUCT_INFO_TABLE + "s.\"idProduct\" WHERE "
           + process.env.DB_PRODUCT_INFO_TABLE + "s.\"idProduct\" = " + id + "; ")
-      return (
-        res.json(results))
+
+      const [resultsVars, metadataVars] = await sequelize.query("SELECT \"" + process.env.DB_PRODUCT_VAR_NAMES +
+        "s\".\"" + process.env.DB_PRODUCT_SQLVAR + "\", \"" + process.env.DB_PRODUCT_SHOWVAR +
+        "\" FROM \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\"; ")
+
+      const j = resultsInfo[0]
+      const i = resultsVars
+
+
+      var json_arr = {}
+      resultsVars.forEach((item) => {
+        json_arr[item.sqlVar] = item.showVar
+        // console.log(item)
+
+      })
+      var json_string = JSON.stringify(json_arr);
+      console.log(json_string)
+
+      const obj = [resultsInfo[0], resultsVars]
+      //console.log(j)
+      return (res.json(obj)
+
+      )
     }
     catch (err) {
       next(ApiError.badRequest(error.message))

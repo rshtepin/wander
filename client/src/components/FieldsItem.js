@@ -17,7 +17,6 @@ const FieldItem = (prop) => {
 
   const saveButton = () => {
     if (btnEditFlag) {
-      console.log('GOOOD')
       setShowInput(true)
       setinputValueVar(name.sqlVar)
       setinputValueShowVar(name.showVar)
@@ -25,6 +24,7 @@ const FieldItem = (prop) => {
       setDisabledEdit(false)
       setDisabledSave(true)
     } else {
+      console.log('GOOOD')
       setShowInput(true)
       setinputValueVar(name.sqlVar)
       setinputValueShowVar(name.showVar)
@@ -112,18 +112,6 @@ const FieldItem = (prop) => {
           onChange={(e) => onChangeInputShow(e.target.value)}
           onBlur={(e) => onBlurShowVar(e.target.value)}
         />
-        {/* <Form.Select id="selectInput"
-          defaultValue={name.data_type}
-          disabled={showInput}
-          onChange={(e) => {
-            onChangeSelect(e.target.value)
-          }}
-        >
-          <option value="integer">integer</option>
-          <option value="ARRAY">ARRAY</option>
-          <option value="character varying">character varying</option>
-        </Form.Select> */}
-
         <Button variant="outline-secondary" disabled={disabledEdit}
           onClick={() => editClick()} >
           Редактировать

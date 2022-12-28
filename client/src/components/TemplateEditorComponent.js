@@ -36,6 +36,7 @@ const TemplateEditorComponent = () => {
   }
 
   const delItem = (id) => {
+    console.log(id)
     let arr = [...editorFields]
     arr = arr.filter((item) => item.sqlVar !== id)
     setEditorFields([...arr])

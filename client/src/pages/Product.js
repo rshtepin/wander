@@ -8,34 +8,51 @@ import {ProductPropFields} from '../components/Product/ProductPropFields'
 const Product = () => {
   console.log('Render')
   const {id} = useParams()
-  const [device, setDevice] = useState()
-
+  const [deviceInfo, setdeviceInfo] = useState([])
+  const [deviceVar, setdeviceVar] = useState([])
   useEffect(() => {
     fetchOneDevice(id).then((data) => {
-      const i = JSON.parse(JSON.stringify(data.data[0]))
-      setDevice(i)
-      console.log(Object.values(i))
-      console.log(Object.keys(i))
-    })
+      // const dataAll = data.data
+      // eslint-disable-next-line no-unused-vars
+      const dataInfo = data.data[0]
+      setdeviceVar(dataInfo)
+      const dataVar = data.data[1]
+
+      const jsonAttr = {}
+
+      dataVar.forEach((item) => {
+        const sqlVar = eval('dataInfo.' + item.sqlVar)
+        jsonAttr[item.showVar] = sqlVar
+        // console.log(item)
+      })
+      setdeviceInfo(jsonAttr)
+    }
+
+    )
   }, [])
 
-  const result = []
-  if (device != null) {
-    for (const i in device) {
-      if (i != 0) {
-        result.push([i, device])
-      }
-    }
-    // console.log(result)
-  }
+  // console.log(Object.keys(deviceInfo))
+
+  // const result = []
+  // if (deviceInfo != null) {
+  //   for (const i in deviceInfo) {
+  //     if (i != 0) {
+  //       result.push([i, deviceInfo])
+  //     }
+  //   }
+  //   // console.log(result)
+  // }
 
   return (
     <><div className="body">
       <div className="backProductpropcard">
         <div className="imgDiv">
-          {(device != null) ? device.title : ''}
+          {(deviceVar != null) ? deviceVar.title : ''}
         </div>
-        {<ProductPropFields />}
+        {Object.keys(deviceInfo).map((name) => {
+          return <ProductPropFields
+            key={name} names={name} values={deviceInfo[name]} />
+        })}
       </div>
     </div>
     </>

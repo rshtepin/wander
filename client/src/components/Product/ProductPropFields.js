@@ -1,11 +1,13 @@
 import React from 'react'
 
 export const ProductPropFields = (prop) => {
+  const {names, values} = prop
+
   return (
-    < div className="fieldBG" >
-      name
+    < div className="fieldBG " >
+      {names}
       < div className="fieldText" >
-        prop
+        {values}
       </div >
     </div >)
 }
