@@ -6,9 +6,10 @@ import Product from './pages/Product'
 import Products from './pages/Products'
 import {
   ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PRODUCTS_ROUTE,
-  PRODUCT_ROUTE, EDITOR_ROUTE
+  PRODUCT_ROUTE, EDITOR_ROUTE, PRODUCT_CHANGE_ROUTE
 }
   from './utils/consts'
+import ProductChange from './pages/ProductChange'
 
 export const authRoutes = [
   {
@@ -36,5 +37,9 @@ export const publicRoutes = [
   {
     path: PRODUCT_ROUTE + '/:id',
     Component: Product
+  },
+  {
+    path: PRODUCT_CHANGE_ROUTE + '/:id',
+    Component: ProductChange
   }
 ]

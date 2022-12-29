@@ -1,6 +1,7 @@
 const {Products} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const sequelize = require('../db')
+const uuid = require('uuid')
 
 class ProductsController {
   async create(req, res, next) {
@@ -9,7 +10,7 @@ class ProductsController {
       const Productsvar = await Products.create({title})
       const id = Productsvar.id
       const [results, metadata] =
-        await sequelize.query("INSERT INTO " + process.env.DB_PRODUCT_INFO_TABLE + "s (\"idProduct\") VALUES(" + id + ");")
+        await sequelize.query("INSERT INTO " + process.env.DB_PRODUCT_INFO_TABLE + "s (\"idProduct\") valueS(" + id + ");")
 
       return res.json(Productsvar)
     } catch (error) {
@@ -90,5 +91,19 @@ class ProductsController {
       next(ApiError.badRequest(error.message))
     }
   }
+  async updateProductField(req, res) {
+    try {
+      const {columnName, value, id} = req.body
+      const [results, metadata] =
+        await sequelize.query("UPDATE \"" + process.env.DB_PRODUCT_INFO_TABLE + "s\" SET \"" + columnName + "\" = \'{" + value + "}\' WHERE \"idProduct\" = " + id + " ;")
+      return (
+
+        res.json('')
+      )
+    } catch (error) {
+      console.log('Error in updateProduct in controller: ' + error)
+    }
+  }
+
 }
 module.exports = new ProductsController()

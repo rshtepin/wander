@@ -74,15 +74,71 @@
   gap: 1px;
   min-height: 14px;
   width: 276px;
-
-
   background: #FFFFFF;
   border-radius: 4px;
-
   /* Inside auto layout */
-
   flex: none;
   order: 1;
   align-self: stretch;
+  flex-grow: 0;
+}
+
+.productChangerMainFrame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  min-width: 75%;
+  background-color: #c2c2c2;
+  border-radius: 10px;
+  padding-bottom: 100px;
+}
+
+.productChangerTitleContainer {
+  position: relative;
+  margin-top: 2px;
+  background-color: #FFFFFF;
+  width: fit-content;
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px #00000049;
+}
+
+.productChangerFieldContainer {
+  width: fit-content;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 2px;
+  background-color: #ffffff00;
+  width: 90%;
+  min-height: 80px;
+  border-radius: 5px;
+
+}
+
+.productChangerFieldInput {
+  box-sizing: border-box;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #979797;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 10px;
+  width: 100%;
+  height: max-content;
+
+  background: #FFFFFF;
+  border: 1px solid rgba(10, 10, 10, 0.12);
+  border-radius: 12px;
+  box-shadow: 1px 3px 10px #00074b1f;
+  flex: none;
+  order: 1;
   flex-grow: 0;
 }

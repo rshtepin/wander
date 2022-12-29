@@ -24,7 +24,6 @@ const FieldItem = (prop) => {
       setDisabledEdit(false)
       setDisabledSave(true)
     } else {
-      console.log('GOOOD')
       setShowInput(true)
       setinputValueVar(name.sqlVar)
       setinputValueShowVar(name.showVar)
