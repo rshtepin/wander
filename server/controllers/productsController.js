@@ -23,7 +23,9 @@ class ProductsController {
   async getAll(req, res) {
     try {
       const [results, metadata] =
-        await sequelize.query("SELECT * FROM public." + process.env.DB_PRODUCTS_TABLE + "s ORDER BY id ASC ")
+        await sequelize.query(" SELECT " + process.env.DB_PRODUCTS_TABLE + "s.*," + process.env.DB_PRODUCT_INFO_TABLE + "s.img FROM "
+          + process.env.DB_PRODUCTS_TABLE + "s LEFT JOIN " + process.env.DB_PRODUCT_INFO_TABLE + "s ON " + process.env.DB_PRODUCTS_TABLE +
+          "s.id = " + process.env.DB_PRODUCT_INFO_TABLE + "s.\"idProduct\"")
       return (
         res.json(results)
       )

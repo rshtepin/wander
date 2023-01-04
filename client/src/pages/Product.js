@@ -31,18 +31,6 @@ const Product = () => {
     )
   }, [])
 
-  // console.log(Object.keys(deviceInfo))
-
-  // const result = []
-  // if (deviceInfo != null) {
-  //   for (const i in deviceInfo) {
-  //     if (i != 0) {
-  //       result.push([i, deviceInfo])
-  //     }
-  //   }
-  //   // console.log(result)
-  // }
-
   return (
     <><div className="body">
       <div className="backProductpropcard">

@@ -11,6 +11,8 @@ const ProductItem = ({product}) => {
     <Col>
       <Card border="primary" style={{width: '18rem'}}
       >
+        <Card.Img variant="top"
+          src={process.env.REACT_APP_API_URL + product.img} />
         <Card.Body>
           <Card.Title>{product.title}</Card.Title>
           <Button className="m-1" variant="outline-secondary"
