@@ -57,12 +57,15 @@ const ProductChanger = ({id}) => {
     <div className="body">
       <div className="productChangerMainFrame">
         <div className="productChangerTitleContainer">
-          <img className="imageAvatar"
-            src={process.env.REACT_APP_API_URL + deviceVar.img}></img>
+          <div className="imgDiv">
+            <img className="imageAvatar"
+              src={process.env.REACT_APP_API_URL + deviceVar.img}></img>
+          </div>
           <Button className="rightButton"
             onClick={() => fileRef.current.click()}>
             +
           </Button>
+
           <input
             ref={fileRef}
             onChange={handleChange}
