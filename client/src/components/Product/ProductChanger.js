@@ -1,16 +1,34 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import ProductChangerField from './ProductChangerField'
 import {fetchOneDevice, updateOneField} from '../../http/productAPI'
-
+import Button from 'react-bootstrap/esm/Button'
+import {$host} from '../../http/index'
 const ProductChanger = ({id}) => {
   const [deviceInfo, setdeviceInfo] = useState([])
   const [deviceVar, setdeviceVar] = useState([])
   const [sqlVarRef, setsqlVarRef] = useState([])
+  const fileRef = useRef()
+
+  const handleChange = (e) => {
+    const [file] = e.target.files
+    // console.log(file)
+    console.log(__dirname)
+    const formData = new FormData()
+    formData.append('img', file)
+    formData.append('columnName', '')
+    formData.append('value', '')
+    formData.append('id', id)
+    $host.post('api/products/change/' + id, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  }
 
   const saveButton = (val, vars) => {
     console.log(val + ' ' + vars)
     updateOneField(vars, val, id)
-    console.log('SAAAVE')
+    console.log('SAAAVE ' + id)
   }
 
   useEffect(() => {
@@ -34,12 +52,25 @@ const ProductChanger = ({id}) => {
     }
     )
   }, [])
-  // console.log(sqlVarRef)
+  console.log(deviceVar.img)
   return (
     <div className="body">
       <div className="productChangerMainFrame">
         <div className="productChangerTitleContainer">
-          {(deviceVar != null) ? deviceVar.title : ''}</div>
+          <img className="imageAvatar"
+            src={process.env.REACT_APP_API_URL + deviceVar.img}></img>
+          <Button className="rightButton"
+            onClick={() => fileRef.current.click()}>
+            +
+          </Button>
+          <input
+            ref={fileRef}
+            onChange={handleChange}
+            multiple={false}
+            type="file"
+            hidden
+          />
+        </div>
 
         {Object.keys(deviceInfo).map((name) => {
           return <ProductChangerField

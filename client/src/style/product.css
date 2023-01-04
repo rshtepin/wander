@@ -21,7 +21,7 @@
   padding: 10px;
   gap: 10px;
 
-  width: 280px;
+  max-width: 280px;
   height: 250px;
 
   background: #66B6FF;
@@ -41,16 +41,10 @@
   align-items: center;
   padding: 2px;
   gap: 3px;
-
   width: 280px;
-
-
   background: #CACACA;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.41);
   border-radius: 4px;
-
-  /* Inside auto layout */
-
   flex: none;
   order: 2;
   align-self: stretch;
@@ -60,9 +54,7 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
-  /* identical to box height */
-
-
+  
   color: #000000;
 }
 
@@ -141,4 +133,13 @@
   flex: none;
   order: 1;
   flex-grow: 0;
+}
+.rightButton{
+position: absolute;
+right:    0;
+bottom:   0;
+}
+.imageAvatar{
+  width: 100%;
+  max-width: 300px;
 }

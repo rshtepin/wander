@@ -8,13 +8,18 @@ export const fetchOneDevice = async (id) => {
 }
 
 export const updateOneField = async (vars, vals, id) => {
-  const data = await $host.post('api/products/change/' + id,
-    {
-      'columnName': vars,
-      'value': vals,
-      'id': id
+  const formData = new FormData()
+  formData.append('columnName', vars)
+  formData.append('value', vals)
+  formData.append('id', id)
+  formData.append('img', null)
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data'
     }
-  )
+  }
+  const data = await $host.post('api/products/change/' + id,
+    formData, config)
 
   return data
 }

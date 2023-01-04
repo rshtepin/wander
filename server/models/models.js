@@ -21,8 +21,9 @@ const Var_names = sequelize.define(
 
 const Product_info = sequelize.define(
   productInfoTable, {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  idProduct: {type: DataTypes.INTEGER, primaryKey: true}
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    img: {type: DataTypes.STRING, primaryKey: true, unique: true},
+    idProduct: {type: DataTypes.INTEGER, primaryKey: true}
 }, {timestamps: false}
 )
 
