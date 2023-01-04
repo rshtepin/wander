@@ -30,7 +30,6 @@ const ProductChanger = ({id}) => {
     updateOneField(vars, val, id)
     console.log('SAAAVE ' + id)
   }
-
   useEffect(() => {
     fetchOneDevice(id).then((data) => {
       // const dataAll = data.data
