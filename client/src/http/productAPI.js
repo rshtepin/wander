@@ -27,9 +27,20 @@ export const updateOneField = async (vars, vals, id) => {
 export const createNewProduct = async (name) => {
   const {data} = await $host.post('api/products/',
     {
+      'command': 'create',
       'title': name
     }
   )
+  return data
+}
 
+export const deleteProduct = async (name) => {
+  console.log('DELEdeleteProduct')
+  const {data} = await $host.post('api/products/',
+    {
+      'command': 'delete',
+      'title': name
+    }
+  )
   return data
 }

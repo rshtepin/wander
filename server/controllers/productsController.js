@@ -7,13 +7,26 @@ const path = require('path')
 class ProductsController {
   async create(req, res, next) {
     try {
-      const {title} = req.body
-      const Productsvar = await Products.create({title})
-      const id = Productsvar.id
-      const [results, metadata] =
-        await sequelize.query("INSERT INTO " + process.env.DB_PRODUCT_INFO_TABLE + "s (\"idProduct\") valueS(" + id + ");")
+      const {title, command} = req.body
 
-      return res.json(Productsvar)
+      if (command == 'create')
+      {
+        const Productsvar = await Products.create({title})
+        const id = Productsvar.id
+        const [results, metadata] =
+          await sequelize.query("INSERT INTO " + process.env.DB_PRODUCT_INFO_TABLE + "s (\"idProduct\") valueS(" + id + ");")
+        return res.json(Productsvar)
+      }
+      if (command == 'delete')
+      {
+        console.log('delete han' + title)
+        await Products.destroy({
+          where:
+            {title}
+        })
+
+        //return res.json(Productsvar)
+      }
     } catch (error) {
       next(ApiError.badRequest(error.message))
     }

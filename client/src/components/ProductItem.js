@@ -1,11 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button'
+import ToggleButton from 'react-bootstrap/ToggleButton'
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import {useNavigate} from 'react-router-dom'
 import {PRODUCT_ROUTE, PRODUCT_CHANGE_ROUTE} from '../utils/consts'
 
-const ProductItem = ({product}) => {
+
+const ProductItem = ({product, onDelete}) => {
+  const [checked, setChecked] = useState(false)
   const history = useNavigate()
   return (
     <Col>
@@ -23,7 +26,24 @@ const ProductItem = ({product}) => {
             onClick={() => history(PRODUCT_CHANGE_ROUTE + '/' + product.id)}
           >
             Редактировать</Button>
-          <Button className="m-1" variant="outline-danger">Удалить</Button>
+          <Button className="m-1" variant="outline-danger"
+            onClick={() => onDelete(product.title)
+            }>
+            Удалить</Button>
+          <br />
+          <ToggleButton
+            className="m-1"
+            id={product.id}
+            type="checkbox"
+            variant="outline-warning"
+            checked={checked}
+
+            onChange={() => setChecked(!checked)}
+          >
+            Сравнить
+          </ToggleButton>
+          <br />
+
         </Card.Body>
       </Card>
     </Col >

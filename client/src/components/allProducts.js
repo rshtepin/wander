@@ -7,7 +7,7 @@ import ModalAddProductProp from './windows/ModalAddProductProp'
 import {Context} from '../index'
 import {observer} from 'mobx-react-lite'
 import ProductItem from './ProductItem'
-
+import {deleteProduct} from '../http/productAPI'
 
 const AllProducts = observer(() => {
   const [show, setShow] = useState(false)
@@ -38,7 +38,9 @@ const AllProducts = observer(() => {
         <Row md={3} className="justify-content-md-center">
 
           {products._productList.map((products) =>
-            <ProductItem key={products.id} product={products} />
+            <ProductItem key={products.id}
+              product={products}
+              onDelete={deleteProduct} />
           )}
 
         </Row>
@@ -47,8 +49,11 @@ const AllProducts = observer(() => {
             onClick={() => setShow(true)}>
             Добавить продукт
           </Button>
-          <Button variant="danger" href="/editor">
+          <Button className="mb-4" variant="danger" href="/editor">
             Редактор шаблона Info
+          </Button>
+          <Button className="mb-4" variant="warning" href="">
+            Сравить
           </Button>
         </Row>
       </Container>
