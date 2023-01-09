@@ -19,7 +19,14 @@ class EditorController {
       const {sqlVar, showVar} = req.body
 
       await sequelize.query("ALTER TABLE IF EXISTS " + process.env.DB_PRODUCT_INFO_TABLE + "s ADD COLUMN \"" + sqlVar + "\" character varying[] ;")
+
       await sequelize.query(" INSERT INTO \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\"(\"sqlVar\", \"showVar\") VALUES('" + sqlVar + "', '" + showVar + "'); ")
+
+      const [resSqlVar, metaSqlVar] = await sequelize.query("SELECT id FROM \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\" ORDER BY id ASC")
+      await resSqlVar.map((item, index) => {
+        sequelize.query("UPDATE \"" + process.env.DB_PRODUCT_VAR_NAMES +
+          "s\" SET id = " + (index + 1) + " WHERE id =" + item.id)
+      })
       return (
         console.log('addColumn in editor Done')
       )
@@ -33,8 +40,12 @@ class EditorController {
       const {sqlVar, showVar, oldSqlVar, id, newid} = req.body
       if (id == '') {
 
-        await sequelize.query("UPDATE \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\" SET \"" +
-          process.env.DB_PRODUCT_SQLVAR + "\" = \'" + sqlVar + "\':: character varying, \"" + process.env.DB_PRODUCT_SHOWVAR + "\" = \'" + showVar + "\'::character varying WHERE \"" + process.env.DB_PRODUCT_SQLVAR + "\" = \'" + oldSqlVar + "\';")
+        await sequelize.query("UPDATE \"" + process.env.DB_PRODUCT_VAR_NAMES +
+          "s\" SET \"" + process.env.DB_PRODUCT_SQLVAR + "\" = \'" +
+          sqlVar + "\':: character varying, \"" +
+          process.env.DB_PRODUCT_SHOWVAR + "\" = \'" +
+          showVar + "\'::character varying WHERE \"" +
+          process.env.DB_PRODUCT_SQLVAR + "\" = \'" + oldSqlVar + "\';")
         return (
           console.log('addColumn in editor Done')
         )

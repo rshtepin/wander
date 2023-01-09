@@ -41,6 +41,7 @@ const TemplateEditorComponent = () => {
     e.preventDefault()
     console.log(currentField + ' droped to ' + name + ' id: ' + id)
     setEditorFields([...arrayMove(editorFields, (currentField - 1), (id - 1))])
+    console.log(editorFields)
     editorFields.map((field) => {
       if (field.id != editorFields.indexOf(field) + 1) {
         updateIdRecord(field, (editorFields.indexOf(field) + 1))
