@@ -7,7 +7,9 @@ const FieldItem = (prop) => {
   const colomnInputVar = useRef(null)
   const colomnInputShow = useRef(null)
   // ///////////////////////////////////////////////////
-  const {name, delItem, saveItem, btnPLusFlag, updateItem} = prop
+  const {name, delItem, saveItem, btnPLusFlag, updateItem,
+    dragStartHandler, onDragEndHandler,
+    onDragOverHandler, dropHandler, id} = prop
   const [disabledEdit, setDisabledEdit] = useState(!btnPLusFlag)
   const [disabledSave, setDisabledSave] = useState(true)
   const [showInput, setShowInput] = useState(btnPLusFlag)
@@ -92,11 +94,17 @@ const FieldItem = (prop) => {
       setDisabledSave(false)
     }
   }
-  // ////////////////////////////////////////////////////////
-
   return (
     <>
-      <Stack className="mt-2" direction="horizontal" gap={3}>
+      <Stack
+        draggable={true}
+        onDragStart={(e) => dragStartHandler(e, name.sqlVar, id)}
+        onDragLeave={(e) => onDragEndHandler(e)}
+        onDragEnd={(e) => onDragEndHandler(e)}
+        onDragOver={(e) => onDragOverHandler(e, name.sqlVar, id)}
+        onDrop={(e) => dropHandler(e, name.sqlVar, id)}
+
+        className="mt-2" direction="horizontal" gap={3}>
         <Form.Control ref={colomnInputVar}
           placeholder="SQL переменная одним словом (ENG)"
           className="me-auto" disabled={showInput}

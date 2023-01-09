@@ -26,12 +26,29 @@ export const updateRecord = async (field, oldSql) => {
         {
           'sqlVar': field.sqlVar,
           'showVar': field.showVar,
-          'oldSqlVar': oldSql
+          'oldSqlVar': oldSql,
+          'id': ''
         })
 
     return response
   } catch (error) {
-    console.log('Error in commandAPI.addColumn: ' + error)
+    console.log('Error in commandAPI.updateRecord: ' + error)
+  }
+}
+export const updateIdRecord = async (field, newId) => {
+  try {
+    console.log(field)
+    const response =
+      await $host.post('api/editor/update',
+        {
+          'sqlVar': field.sqlVar,
+          'id': field.id,
+          'newid': newId
+        })
+
+    return response
+  } catch (error) {
+    console.log('Error in commandAPI.updateIdRecord: ' + error)
   }
 }
 

@@ -9,21 +9,22 @@ class ProductsController {
     try {
       const {title, command} = req.body
 
-      if (command == 'create')
-      {
+      if (command == 'create') {
         const Productsvar = await Products.create({title})
         const id = Productsvar.id
-        const [results, metadata] =
-          await sequelize.query("INSERT INTO " + process.env.DB_PRODUCT_INFO_TABLE + "s (\"idProduct\") valueS(" + id + ");")
+        await sequelize.query("INSERT INTO " + process.env.DB_PRODUCT_INFO_TABLE + "s (\"idProduct\") valueS(" + id + ");")
         return res.json(Productsvar)
       }
-      if (command == 'delete')
-      {
-        console.log('delete han' + title)
+      if (command == 'delete') {
+        const [id, metaid] =
+          await sequelize.query("SELECT id FROM " + process.env.DB_PRODUCTS_TABLE + "s WHERE \"title\"= \'" + title + "\'")
+        await sequelize.query("DELETE FROM " + process.env.DB_PRODUCT_INFO_TABLE + "s WHERE \"idProduct\"= \'" + id[0].id + "\'")
         await Products.destroy({
           where:
             {title}
         })
+        console.log('delete ' + title)
+
 
         //return res.json(Productsvar)
       }
@@ -36,9 +37,11 @@ class ProductsController {
   async getAll(req, res) {
     try {
       const [results, metadata] =
-        await sequelize.query(" SELECT " + process.env.DB_PRODUCTS_TABLE + "s.*," + process.env.DB_PRODUCT_INFO_TABLE + "s.img FROM "
-          + process.env.DB_PRODUCTS_TABLE + "s LEFT JOIN " + process.env.DB_PRODUCT_INFO_TABLE + "s ON " + process.env.DB_PRODUCTS_TABLE +
-          "s.id = " + process.env.DB_PRODUCT_INFO_TABLE + "s.\"idProduct\"")
+        await sequelize.query(" SELECT " + process.env.DB_PRODUCTS_TABLE + "s.*," +
+          process.env.DB_PRODUCT_INFO_TABLE + "s.img FROM "
+          + process.env.DB_PRODUCTS_TABLE + "s LEFT JOIN " +
+          process.env.DB_PRODUCT_INFO_TABLE + "s ON " + process.env.DB_PRODUCTS_TABLE +
+          "s.id = " + process.env.DB_PRODUCT_INFO_TABLE + "s.\"idProduct\" ")
       return (
         res.json(results)
       )
@@ -69,7 +72,7 @@ class ProductsController {
           process.env.DB_PRODUCT_VAR_NAMES +
           "s\".\"" + process.env.DB_PRODUCT_SQLVAR +
           "\", \"" + process.env.DB_PRODUCT_SHOWVAR +
-        "\" FROM \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\"; ")
+          "\" FROM \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\" ORDER BY id ASC; ")
 
       const j = resultsInfo[0]
       const i = resultsVars
@@ -94,12 +97,10 @@ class ProductsController {
   }
 
   async updateProductField(req, res) {
-    try
-    {
+    try {
       let {columnName, value, id} = req.body
       console.log(columnName + ' ' + value + ' ' + id + ' ')
-      if (columnName == '')
-      {
+      if (columnName == '') {
         const {img} = req.files
         let fileName = uuid.v4() + '.jpg'
         img.mv(path.resolve(__dirname, '..', 'static', fileName))
@@ -108,8 +109,7 @@ class ProductsController {
       }
 
 
-      if (columnName !== '')
-      {
+      if (columnName !== '') {
         const [results, metadata] =
           await sequelize.query("UPDATE \""
             + process.env.DB_PRODUCT_INFO_TABLE +
@@ -117,8 +117,7 @@ class ProductsController {
             "}\'WHERE \"idProduct\" = " + id + " ;")
       }
     }
-    catch (error)
-    {
+    catch (error) {
       console.log('Error in updateProduct in controller: ' + error)
     }
   }
