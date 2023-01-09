@@ -12,7 +12,7 @@ const ProductItem = ({product, onDelete}) => {
   const history = useNavigate()
   return (
     <Col>
-      <Card border="primary" style={{width: '18rem'}}
+      <Card className='mb-4' border="primary" style={{width: '18rem'}}
       >
         <Card.Img variant="top"
           src={process.env.REACT_APP_API_URL + product.img} />
