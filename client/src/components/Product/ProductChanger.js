@@ -27,17 +27,23 @@ const ProductChanger = ({id}) => {
 
   const saveButton = (val, vars) => {
     console.log(val + ' ' + vars)
-    updateOneField(vars, val, id)
-    console.log('SAAAVE ' + id)
+    if (vars == 'title') {
+      console.log('TITLE!!!!')
+      updateOneField(vars, val, id)
+    }
+    if (vars != 'title') {
+      updateOneField(vars, val, id)
+    }
   }
   useEffect(() => {
     fetchOneDevice(id).then((data) => {
-      // const dataAll = data.data
       // eslint-disable-next-line no-unused-vars
       const dataInfo = data.data[0]
+      const dataVar =
+        [{sqlVar: 'title', showVar: 'Название продукта'}, ...data.data[1]]
       setdeviceVar(dataInfo)
-      const dataVar = data.data[1]
-
+      console.log(dataVar)
+      dataVar.push()
       const jsonAttr = {}
 
       dataVar.forEach((item) => {
@@ -51,14 +57,14 @@ const ProductChanger = ({id}) => {
     }
     )
   }, [])
-  console.log(deviceVar.img)
+
   return (
     <div className="body">
       <div className="productChangerMainFrame">
         <div className="productChangerTitleContainer">
           <div className="imgDiv">
             <img className="imageAvatar"
-              src={process.env.REACT_APP_API_URL + deviceVar.img}></img>
+              src={process.env.REACT_APP_API_URL + '/' + deviceVar.img}></img>
           </div>
           <Button className="rightButton"
             onClick={() => fileRef.current.click()}>

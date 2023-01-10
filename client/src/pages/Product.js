@@ -36,7 +36,8 @@ const Product = () => {
       <div className="backProductpropcard">
         <div className="imgDiv">
           {(deviceVar != null) ? <img className="imageAvatar"
-            src={process.env.REACT_APP_API_URL + deviceVar.img}></img> : ''}
+            src={process.env.REACT_APP_API_URL
+              + '/' + deviceVar.img}></img> : ''}
         </div>
         {Object.keys(deviceInfo).map((name) => {
           return <ProductPropFields

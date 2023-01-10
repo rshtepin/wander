@@ -50,7 +50,6 @@ class ProductsController {
     }
   }
 
-
   async getOne(req, res, next) {
     try {
       const {id} = req.params
@@ -107,9 +106,15 @@ class ProductsController {
         columnName = 'img'
         value = fileName
       }
+      if (columnName = 'title') {
+        console.log('NICE!')
+        await sequelize.query("UPDATE \""
+          + process.env.DB_PRODUCTS_TABLE +
+          "s\" SET \"" + columnName + "\" = \'" + value +
+          "\'WHERE \"id\" = " + id + " ;")
+      }
 
-
-      if (columnName !== '') {
+      if ((columnName !== '') && (columnName !== 'title')) {
         const [results, metadata] =
           await sequelize.query("UPDATE \""
             + process.env.DB_PRODUCT_INFO_TABLE +

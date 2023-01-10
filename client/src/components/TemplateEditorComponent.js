@@ -12,8 +12,12 @@ const TemplateEditorComponent = () => {
   const [editorFields, setEditorFields] = useState([])
   const [fVis, setFVis] = useState(true)
   const [currentField, setCurrnetField] = useState(null)
+  useEffect(() => {
+    getAllFields().then((data) => {
+      setEditorFields(data.data)
+    })
+  }, [])
 
-  console.log(currentField)
 
   function arrayMove(arr, oldindex, newindex) {
     if (newindex >= arr.length) {
@@ -41,21 +45,36 @@ const TemplateEditorComponent = () => {
     e.preventDefault()
     console.log(currentField + ' droped to ' + name + ' id: ' + id)
     setEditorFields([...arrayMove(editorFields, (currentField - 1), (id - 1))])
+    console.log('OLD editorFields')
     console.log(editorFields)
+
     editorFields.map((field) => {
       if (field.id != editorFields.indexOf(field) + 1) {
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         updateIdRecord(field, (editorFields.indexOf(field) + 1))
-        console.log('АЙди ' + field.id + ' Позиция ' +
+        console.log('АЙди ' + field.id + ' на позицию ' +
           (editorFields.indexOf(field) + 1))
       }
     })
+    const updateState = async () => {
+      setEditorFields((prevState) => {
+        const newState = prevState.map((obj) => {
+          if (obj.id != (prevState.indexOf(obj) + 1)) {
+            console.log('obj.id=' + obj.id +
+              ' index=' + (prevState.indexOf(obj) + 1))
+            return {
+              ...obj, id: (prevState.indexOf(obj) + 1)
+            }
+          }
+          return obj
+        })
+        console.log(newState)
+        return newState
+      })
+    }
+    updateState()
   }
 
-  useEffect(() => {
-    getAllFields().then((data) => {
-      setEditorFields(data.data)
-    })
-  }, [])
 
   const updateItem = (field, oldVar) => {
     console.log(JSON.stringify(field) + ' ' + oldVar)

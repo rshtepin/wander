@@ -1,4 +1,18 @@
 const sequelize = require('../db')
+
+const reIdvarNames = async () => {
+  const [resSqlVar, metaSqlVar] = await sequelize.query("SELECT id FROM \""
+    + process.env.DB_PRODUCT_VAR_NAMES + "s\" ORDER BY id ASC")
+
+  await resSqlVar.map((item, index) => {
+    if ((index + 1) != item.id) {
+      console.log('index = ' + index + " item.id = " + item.id)
+      sequelize.query("UPDATE \"" + process.env.DB_PRODUCT_VAR_NAMES +
+        "s\" SET id = " + (index + 1) + " WHERE id =" + item.id)
+    }
+  })
+
+}
 class EditorController {
 
   async getColumnsList(req, res, {table_name}) {
@@ -18,17 +32,19 @@ class EditorController {
     try {
       const {sqlVar, showVar} = req.body
 
-      await sequelize.query("ALTER TABLE IF EXISTS " + process.env.DB_PRODUCT_INFO_TABLE + "s ADD COLUMN \"" + sqlVar + "\" character varying[] ;")
+      await sequelize.query("ALTER TABLE IF EXISTS "
+        + process.env.DB_PRODUCT_INFO_TABLE + "s ADD COLUMN \""
+        + sqlVar + "\" character varying[] ;")
 
-      await sequelize.query(" INSERT INTO \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\"(\"sqlVar\", \"showVar\") VALUES('" + sqlVar + "', '" + showVar + "'); ")
+      await sequelize.query(" INSERT INTO \"" +
+        process.env.DB_PRODUCT_VAR_NAMES +
+        "s\"(\"sqlVar\", \"showVar\") VALUES('"
+        + sqlVar + "', '" + showVar + "'); ")
 
-      const [resSqlVar, metaSqlVar] = await sequelize.query("SELECT id FROM \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\" ORDER BY id ASC")
-      await resSqlVar.map((item, index) => {
-        sequelize.query("UPDATE \"" + process.env.DB_PRODUCT_VAR_NAMES +
-          "s\" SET id = " + (index + 1) + " WHERE id =" + item.id)
-      })
+      await reIdvarNames()
+
       return (
-        console.log('addColumn in editor Done')
+        res.json('addColumn in editor Done')
       )
     } catch (error) {
       console.log('Error in addColumn in controller: ' + error)
@@ -38,6 +54,7 @@ class EditorController {
   async updateColumn(req, res) {
     try {
       const {sqlVar, showVar, oldSqlVar, id, newid} = req.body
+      console.log('updateColumn')
       if (id == '') {
 
         await sequelize.query("UPDATE \"" + process.env.DB_PRODUCT_VAR_NAMES +
@@ -47,11 +64,17 @@ class EditorController {
           showVar + "\'::character varying WHERE \"" +
           process.env.DB_PRODUCT_SQLVAR + "\" = \'" + oldSqlVar + "\';")
         return (
-          console.log('addColumn in editor Done')
+          res.json('done')
+
         )
       }
       if (id != '') {
-        console.log('Переменная ' + sqlVar + ' id ' + id + ' на позицию ' + newid)
+        await sequelize.query("UPDATE \"" + process.env.DB_PRODUCT_VAR_NAMES +
+          "s\" SET id = " + newid + " WHERE \"sqlVar\" =\'" + sqlVar + "\'")
+        // console.log('Переменная ' + sqlVar + ' id ' + id + ' на позицию ' + newid)
+        return (
+          res.json('done')
+        )
       }
     } catch (error) {
       console.log('Error in addColumn in controller: ' + error)
@@ -60,14 +83,14 @@ class EditorController {
 
 
   async dropColumn(req, res) {
-    console.log('dropColumn')
+
     const {sqlVar} = req.body
-    console.log(sqlVar)
     await sequelize.query("ALTER TABLE IF EXISTS " + process.env.DB_PRODUCT_INFO_TABLE + "s DROP COLUMN IF EXISTS \"" + sqlVar + "\" ;")
     await sequelize.query("DELETE FROM \"" + process.env.DB_PRODUCT_VAR_NAMES + "s\" WHERE \"" +
       process.env.DB_PRODUCT_VAR_NAMES + "s\".\"" +
       process.env.DB_PRODUCT_SQLVAR + "\" = \'" + sqlVar + "\' ;")
-    return ('dropDone')
+    await reIdvarNames()
+    return (res.json('dropDone'))
 
   }
 

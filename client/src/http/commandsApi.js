@@ -37,7 +37,6 @@ export const updateRecord = async (field, oldSql) => {
 }
 export const updateIdRecord = async (field, newId) => {
   try {
-    console.log(field)
     const response =
       await $host.post('api/editor/update',
         {
