@@ -9,13 +9,18 @@ import {observer} from 'mobx-react-lite'
 import ProductItem from './ProductItem'
 import {deleteProduct} from '../http/productAPI'
 
+
 const AllProducts = observer(() => {
   const [show, setShow] = useState(false)
   const {products} = useContext(Context)
+  const [compareArr, setCompareArr] = useState([])
 
   useEffect(() => {
     getAllRecords().then((data) => {
       products.setList(data.data)
+      setCompareArr(products._productList.map((item) => {
+        return (item.id)
+      }))
     })
   }, [])
 
@@ -32,6 +37,8 @@ const AllProducts = observer(() => {
   const onSave = () => {
 
   }
+
+  console.log(compareArr)
   return (
     <>
       <Container className="mt-4">
