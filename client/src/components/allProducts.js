@@ -52,7 +52,7 @@ const AllProducts = observer(() => {
           <Button className="mb-4" variant="danger" href="/editor">
             Редактор шаблона Info
           </Button>
-          <Button className="mb-4" variant="warning" href="">
+          <Button className="mb-4" variant="warning" href="/product/compare">
             Сравить
           </Button>
         </Row>

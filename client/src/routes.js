@@ -4,9 +4,11 @@ import Main from './pages/Main'
 import Editor from './pages/TemplateEditor'
 import Product from './pages/Product'
 import Products from './pages/Products'
+import CompareProducts from './pages/CompareProducts'
+
 import {
   ADMIN_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, PRODUCTS_ROUTE,
-  PRODUCT_ROUTE, EDITOR_ROUTE, PRODUCT_CHANGE_ROUTE
+  PRODUCT_ROUTE, EDITOR_ROUTE, PRODUCT_CHANGE_ROUTE, PRODUCT_COMPARE_ROUTE
 }
   from './utils/consts'
 import ProductChange from './pages/ProductChange'
@@ -41,5 +43,9 @@ export const publicRoutes = [
   {
     path: PRODUCT_CHANGE_ROUTE + '/:id',
     Component: ProductChange
+  },
+  {
+    path: PRODUCT_COMPARE_ROUTE,
+    Component: CompareProducts
   }
 ]

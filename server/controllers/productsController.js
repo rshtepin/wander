@@ -24,8 +24,6 @@ class ProductsController {
             {title}
         })
         console.log('delete ' + title)
-
-
         //return res.json(Productsvar)
       }
     } catch (error) {
@@ -126,6 +124,8 @@ class ProductsController {
       console.log('Error in updateProduct in controller: ' + error)
     }
   }
-
+  async compare(req, res) {
+    console.log('COMPARE!')
+  }
 }
 module.exports = new ProductsController()

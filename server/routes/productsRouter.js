@@ -10,4 +10,5 @@ router.get('/:id', ProductsController.getOne)
 router.get('/change/:id', ProductsController.getOne)
 router.post('/change/:id', ProductsController.updateProductField)
 
+router.post('/compare/', ProductsController.compare)
 module.exports = router

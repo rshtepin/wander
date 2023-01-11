@@ -37,7 +37,6 @@ const ProductItem = ({product, onDelete}) => {
             type="checkbox"
             variant="outline-warning"
             checked={checked}
-
             onChange={() => setChecked(!checked)}
           >
             Сравнить
